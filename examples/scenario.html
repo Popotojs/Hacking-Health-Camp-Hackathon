@@ -1,0 +1,433 @@
+<!doctype html>
+<html>
+<head>
+    <title>Network | Images</title>
+
+    <style type="text/css">
+        #mynetwork {
+            width: 100%;
+            height: 100vh;
+            border: 1px solid lightgray;
+        }
+    </style>
+
+    <script type="text/javascript" src="../js/vis.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-2.2.2.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+    <link href="../css/vis.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript">
+
+        var nodesArray = null;
+        var edgesArray = null;
+        var network = null;
+        var nodes = [];
+        var edges = [];
+        var step = 1;
+
+        var DIR = '../images/';
+
+        // Called when the Visualization API is loaded.
+        function draw() {
+            // Create a data table with nodes.
+            nodesArray = [];
+
+            // Create a data table with links.
+            edgesArray = [];
+
+            /////////////// step 1
+            nodesArray.push({
+                id: 1,
+                label: 'Toux',
+                group: "Observation"
+            });
+
+            nodesArray.push({
+                id: 2,
+                label: 'Dyspnee',
+                group: "Observation"
+            });
+
+            nodesArray.push({
+                id: 3,
+                label: 'Fumeur',
+                title: "2 paquets par jours",
+                group: "Observation"
+            });
+
+            nodesArray.push({
+                id: 4,
+                label: 'Crache du sang',
+                group: "Observation"
+            });
+
+            // create a network
+            var container = document.getElementById('mynetwork');
+
+            /*
+             var x = ((-container.clientWidth) / 2) + 50;
+             var y = 50;
+             var step = 70;
+             var legendSize = 20;
+             nodesArray.push({
+             id: 1000,
+             x: ((-container.clientWidth) / 2) + 50,
+             y: y,
+             label: 'Observation',
+             group: 'Observation',
+             fixed: true,
+             physics: false
+             });
+             nodesArray.push({
+             id: 1001,
+             x: ((-container.clientWidth) / 2) + 50,
+             y: y + step,
+             label: 'Probleme',
+             group: 'Probleme',
+             fixed: true,
+             physics: false
+             });
+             nodesArray.push({
+             id: 1002,
+             x: ((-container.clientWidth) / 2) + 50,
+             y: y + 2 * step,
+             label: 'Action',
+             group: 'Action',
+             fixed: true,
+             physics: false
+             });
+             */
+
+            nodes = new vis.DataSet(nodesArray);
+            edges = new vis.DataSet(edgesArray);
+
+            var data = {
+                nodes: nodes,
+                edges: edges
+            };
+            var options = {
+
+                //layout: {randomSeed: 2},
+                nodes: {
+                    shape: 'dot',
+                    font: {strokeWidth: 3, strokeColor: 'white'}
+                },
+
+                edges: {
+                    arrows: 'to'
+                },
+                groups: {
+                    "Observation": {
+                        color: {
+                            background: '#97c2fc',
+                            border: '#317ce0',
+                            highlight: {background: '#97c2fc', border: '#317ce0'}
+                        }
+                    },
+                    "Probleme": {
+                        color: {
+                            background: '#fb7e81',
+                            border: '#fa3d41',
+                            highlight: {background: '#fb7e81', border: '#317ce0'}
+                        }
+                    },
+                    "Action": {
+                        color: {
+                            background: '#c2fabc',
+                            border: '#4ad63a',
+                            highlight: {background: '#c2fabc', border: '#317ce0'}
+                        }
+                    }
+                },
+
+                "physics": {
+                    "barnesHut": {
+                        //"gravitationalConstant": -26400,
+                        //"centralGravity": 2.6,
+                        "springLength": 280
+                    }
+                }
+            };
+
+            network = new vis.Network(container, data, options);
+
+            network.on("doubleClick", function (params) {
+
+                        if (params.nodes.length > 0)
+                            if (params.nodes[0] == 15) {
+                                radioDialog.dialog("open");
+                            } else if (params.nodes[0] == 16) {
+                                typamDialog.dialog("open");
+                            } else if (params.nodes[0] == 7) {
+                                electroDialog.dialog("open");
+                            } else if (params.nodes[0] == 10 || params.nodes[0] == 17) {
+                                noticeDialog.dialog("open");
+                            }
+                    }
+            );
+
+            var radioDialog = $("#radio-dialog").dialog({
+                autoOpen: false,
+                height: 400,
+                width: 500,
+                modal: true
+            });
+
+            var typamDialog = $("#typam-dialog").dialog({
+                autoOpen: false,
+                height: 400,
+                width: 500,
+                modal: true
+            });
+
+            var electroDialog = $("#electro-dialog").dialog({
+                autoOpen: false,
+                height: 400,
+                width: 500,
+                modal: true
+            });
+
+            var noticeDialog = $("#notice-dialog").dialog({
+                autoOpen: false,
+                height: 400,
+                width: 500,
+                modal: true
+            });
+        }
+
+        function next() {
+            switch (step) {
+                case 1:
+
+                    nodes.add({
+                        id: 5,
+                        label: 'Pathologie\nPulmonaire',
+                        group: "Probleme"
+                    });
+
+                    edges.add({
+                        from: 1,
+                        to: 5,
+                        //label: "Suggere",
+                        font: {align: "top"},
+                        //value:3,
+                        arrows: 'to'
+                    });
+
+                    edges.add({
+                        from: 2,
+                        to: 5,
+                        //label: "Suggere",
+                        font: {align: "top"},
+                        arrows: 'to'
+                    });
+
+                    edges.add({
+                        from: 3,
+                        to: 5,
+                        //label: "Suggere",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+
+                    edges.add({
+                        from: 4,
+                        to: 5,
+                        //label: "Suggere",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    //network.stabilize();
+                    break;
+                case 2:
+                    nodes.add({
+                        id: 6,
+                        label: 'Radio',
+                        title: 'Demande radio 15h',
+                        group: "Action"
+                    });
+
+                    edges.add({
+                        from: 5,
+                        to: 6,
+                        //label: "recommande",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    //network.stabilize();
+                    break;
+                case 3:
+
+                    nodes.remove({id: 5});
+                    nodes.update([
+                        {
+                            id: 6,
+                            label: 'Radio',
+                            title: 'Demande radio 15h',
+                            group: "Observation"
+                        }]);
+
+                    nodes.add({
+                        id: 7,
+                        label: 'Cancer',
+                        group: "Probleme"
+                    });
+
+                    nodes.add({
+                        id: 8,
+                        label: 'Tuberculose',
+                        group: "Probleme"
+                    });
+
+                    edges.add({
+                        from: 1,
+                        to: 7,
+                        //label: "Suggere",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 2,
+                        to: 7,
+                        //label: "Suggere",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 3,
+                        to: 7,
+                        //label: "Suggere",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 4,
+                        to: 7,
+                        //label: "Suggere",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 6,
+                        to: 7,
+                        //label: "Suggere",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+
+                    edges.add({
+                        from: 1,
+                        to: 8,
+                        //label: "Suggere",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 2,
+                        to: 8,
+                        //label: "Suggere",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 3,
+                        to: 8,
+                        //label: "Suggere",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 4,
+                        to: 8,
+                        //label: "Suggere",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 6,
+                        to: 8,
+                        //label: "Suggere",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    //network.stabilize();
+                    break;
+                case 4:
+                    nodes.add({
+                        id: 9,
+                        label: 'bronchoscopie',
+                        group: "Action"
+                    });
+
+                    edges.add({
+                        id: 100,
+                        from: 7,
+                        to: 9,
+                        //label: "Recommande",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+
+                    edges.add({
+                        id: 101,
+                        from: 8,
+                        to: 9,
+                        //label: "Recommande",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    //network.stabilize();
+
+                    break;
+                case 5:
+                    nodes.update([{
+                        id: 9,
+                        label: 'bronchoscopie',
+                        group: "Observation"
+                    }]);
+                    edges.remove({id: 100});
+                    edges.remove({id: 101});
+                    edges.add({
+                        from: 9,
+                        to: 7,
+                        //label: "Suggere",
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+
+                    nodes.update([{
+                        id: 7,
+                        label: 'Cancer',
+                        size: 50,
+                        group: "Probleme"
+                    }]);
+
+                    nodes.update([{
+                        id: 8,
+                        label: 'Tuberculose',
+                        size: 8,
+                        group: "Probleme"
+                    }]);
+
+                    break;
+            }
+
+            step++;
+        }
+    </script>
+
+<body onload="draw()">
+
+<input type="button" value="next" onclick="next()">
+<div>
+    <img src="../images/patient-male-32.png"> <span>Pascal Martin</span>
+</div>
+<div id="mynetwork"></div>
+<div id="radio-dialog" title="Image">
+    <img src="../images/radio.jpg" width="400">
+</div>
+
+</body>
+</html>
