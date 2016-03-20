@@ -200,7 +200,6 @@
                     network = new vis.Network(container, data, options);
 
 
-
                     network.on("doubleClick", function (params) {
 
                                 if (params.nodes.length > 0)
@@ -284,45 +283,8 @@
                         arrows: 'to',
                         font: {align: "top"}
                     });
-                    //network.stabilize();
-                    //network.fit();
                     break;
                 case 2:
-                    /*
-                     edges.update([
-                     {
-                     id:201,
-                     from: 1,
-                     to: 5,
-                     label:"",
-                     font: {align: "top"},
-                     arrows: 'to'
-                     },
-                     {
-                     id:202,
-                     from: 2,
-                     to: 5,
-                     label:"",
-                     font: {align: "top"},
-                     arrows: 'to'
-                     },
-                     {
-                     id:203,
-                     from: 3,
-                     to: 5,
-                     label:"",
-                     arrows: 'to',
-                     font: {align: "top"}
-                     },
-                     {
-                     id:204,
-                     from: 4,
-                     to: 5,
-                     label:"",
-                     arrows: 'to',
-                     font: {align: "top"}
-                     }]);
-                     */
 
                     nodes.update([
                         {
@@ -351,7 +313,17 @@
                     //network.fit();
                     break;
                 case 3:
+                    nodes.update([
+                        {
+                            id: 6,
+                            label: 'Radio',
+                            title: "Radio du 03/12/2014",
+                            group: "Observation"
+                        }]);
+                    $("#date").html("03/12/2014");
 
+                    break;
+                case 4:
                     nodes.remove({id: 5});
                     nodes.update([
                         {
@@ -444,12 +416,11 @@
                         arrows: 'to',
                         font: {align: "top"}
                     });
-                    $("#date").html("03/12/2014");
 
                     //network.stabilize();
                     //network.fit();
                     break;
-                case 4:
+                case 5:
 
                     nodes.update([{
                         id: 7,
@@ -489,7 +460,7 @@
                     //network.stabilize();
                     //network.fit();
                     break;
-                case 5:
+                case 6:
                     nodes.update([{
                         id: 9,
                         label: 'bronchoscopie',
@@ -520,7 +491,7 @@
                     }]);
                     $("#date").html("13/12/2014");
                     break;
-                case 6:
+                case 7:
                     nodes.add({
                         id: 20,
                         label: 'Hypertension',
