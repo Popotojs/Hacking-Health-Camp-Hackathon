@@ -38,9 +38,10 @@
         var nodesArray = null;
         var edgesArray = null;
         var network = null;
+        var radioDialog = null;
         var nodes = [];
         var edges = [];
-        var step = 1;
+        var step = 0;
 
         var DIR = '../images/';
 
@@ -77,9 +78,6 @@
                 label: 'Crache du sang',
                 group: "Observation"
             });
-
-            // create a network
-            var container = document.getElementById('mynetwork');
 
             /*
              var x = ((-container.clientWidth) / 2) + 50;
@@ -118,71 +116,25 @@
             nodes = new vis.DataSet(nodesArray);
             edges = new vis.DataSet(edgesArray);
 
-            var data = {
-                nodes: nodes,
-                edges: edges
-            };
-            var options = {
-
-                layout: {randomSeed: 5},
-                nodes: {
-                    shape: 'dot',
-                    font: {strokeWidth: 3, strokeColor: 'white'}
-                },
-
-                edges: {
-                    arrows: 'to'
-                },
-                groups: {
-                    "Observation": {
-                        color: {
-                            background: '#97c2fc',
-                            border: '#317ce0',
-                            highlight: {background: '#97c2fc', border: '#317ce0'}
-                        }
-                    },
-                    "Probleme": {
-                        color: {
-                            background: '#fb7e81',
-                            border: '#fa3d41',
-                            highlight: {background: '#fb7e81', border: '#fa3d41'}
-                        }
-                    },
-                    "Action": {
-                        color: {
-                            background: '#c2fabc',
-                            border: '#4ad63a',
-                            highlight: {background: '#c2fabc', border: '#4ad63a'}
-                        }
-                    }
-                },
-
-                "physics": {
-                    "barnesHut": {
-                        //"gravitationalConstant": -26400,
-                        //"centralGravity": 2.6,
-                        "springLength": 300
-                    }
-                }
-            };
-
-            network = new vis.Network(container, data, options);
-
-            network.on("doubleClick", function (params) {
-
-                        if (params.nodes.length > 0)
-                            if (params.nodes[0] == 6) {
-                                radioDialog.dialog("open");
-                            }
-                    }
-            );
-
-            var radioDialog = $("#radio-dialog").dialog({
+            radioDialog = $("#radio-dialog").dialog({
                 autoOpen: false,
                 height: 500,
                 width: 450,
                 modal: true
             });
+
+            /*
+             network = new vis.Network(container, data, options);
+
+             network.on("doubleClick", function (params) {
+
+             if (params.nodes.length > 0)
+             if (params.nodes[0] == 6) {
+             radioDialog.dialog("open");
+             }
+             }
+             );
+             */
 
             $("#nextButton")
                     .button()
@@ -194,6 +146,100 @@
 
         function next() {
             switch (step) {
+                case 0:
+                    var data = {
+                        nodes: nodes,
+                        edges: edges
+                    };
+                    var options = {
+
+                        layout: {randomSeed: 5},
+                        nodes: {
+                            shape: 'dot',
+                            font: {strokeWidth: 3, strokeColor: 'white'}
+                        },
+
+                        edges: {
+                            arrows: 'to'
+                        },
+                        groups: {
+                            "Observation": {
+                                color: {
+                                    background: '#97c2fc',
+                                    border: '#317ce0',
+                                    highlight: {background: '#97c2fc', border: '#317ce0'}
+                                }
+                            },
+                            "Probleme": {
+                                color: {
+                                    background: '#fb7e81',
+                                    border: '#fa3d41',
+                                    highlight: {background: '#fb7e81', border: '#fa3d41'}
+                                }
+                            },
+                            "Action": {
+                                color: {
+                                    background: '#c2fabc',
+                                    border: '#4ad63a',
+                                    highlight: {background: '#c2fabc', border: '#4ad63a'}
+                                }
+                            }
+                        },
+
+                        "physics": {
+                            "barnesHut": {
+                                //"gravitationalConstant": -26400,
+                                //"centralGravity": 2.6,
+                                "springLength": 300
+                            }
+                        }
+                    };
+
+                    // create a network
+                    var container = document.getElementById('mynetwork');
+                    network = new vis.Network(container, data, options);
+
+
+
+                    network.on("doubleClick", function (params) {
+
+                                if (params.nodes.length > 0)
+                                    if (params.nodes[0] == 6) {
+                                        radioDialog.dialog("open");
+                                    }
+                            }
+                    );
+                    /*
+                     nodes.add({
+                     id: 1,
+                     label: 'Toux',
+                     group: "Observation"
+                     });
+
+                     nodes.add({
+                     id: 2,
+                     label: 'Dyspnee',
+                     group: "Observation"
+                     });
+
+                     nodes.add({
+                     id: 3,
+                     label: 'Fumeur',
+                     title: "2 paquets par jours",
+                     group: "Observation"
+                     });
+
+                     nodes.add({
+                     id: 4,
+                     label: 'Crache du sang',
+                     group: "Observation"
+                     });
+
+                     network.stabilize();
+                     network.fit();
+                     */
+                    break;
+
                 case 1:
 
                     nodes.add({
@@ -473,8 +519,144 @@
                         group: "Probleme"
                     }]);
                     $("#date").html("13/12/2014");
+                    break;
+                case 6:
+                    nodes.add({
+                        id: 20,
+                        label: 'Hypertension',
+                        size: 10,
+                        group: "Probleme"
+                    });
 
-                    //network.fit();
+                    nodes.add({
+                        id: 21,
+                        label: 'Diabete',
+                        size: 15,
+                        group: "Probleme"
+                    });
+
+                    nodes.add({
+                        id: 22,
+                        label: 'Obesite',
+                        size: 30,
+                        group: "Probleme"
+                    });
+
+                    edges.add({
+                        from: 20,
+                        to: 21,
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+
+                    edges.add({
+                        from: 21,
+                        to: 22,
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+
+                    edges.add({
+                        from: 22,
+                        to: 20,
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+
+                    //aditional nodes
+
+                    nodes.add({
+                        id: 30,
+                        group: "Observation"
+                    });
+
+                    nodes.add({
+                        id: 31,
+                        group: "Observation"
+                    });
+
+                    nodes.add({
+                        id: 32,
+                        group: "Action"
+                    });
+
+                    nodes.add({
+                        id: 33,
+                        group: "Observation"
+                    });
+
+                    nodes.add({
+                        id: 34,
+                        group: "Observation"
+                    });
+
+                    nodes.add({
+                        id: 35,
+                        group: "Observation"
+                    });
+
+                    nodes.add({
+                        id: 36,
+                        group: "Observation"
+                    });
+
+
+                    // links
+                    edges.add({
+                        from: 30,
+                        to: 21,
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 31,
+                        to: 21,
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 33,
+                        to: 21,
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 33,
+                        to: 22,
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 32,
+                        to: 22,
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 34,
+                        to: 22,
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 35,
+                        to: 20,
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+                    edges.add({
+                        from: 36,
+                        to: 20,
+                        arrows: 'to',
+                        font: {align: "top"}
+                    });
+
+                    network.stabilize();
+                    var animateoptions = {
+                        duration: 1000,
+                        easingFunction: "easeInOutQuad"
+                    };
+                    network.fit({animation: animateoptions});
                     break;
             }
 
