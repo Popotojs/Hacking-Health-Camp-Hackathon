@@ -354,7 +354,7 @@
 </div>
 
 <!-- Required scripts -->
-<script src="../js/jquery.js" charset="utf-8"></script>
+<script src="../js/jquery-2.2.2.min.js" charset="utf-8"></script>
 <script src="../js/d3.min.js" charset="utf-8"></script>
 <script src="../js/popoto.js" charset="utf-8"></script>
 <script src="../js/vis.min.js"></script>
@@ -370,9 +370,12 @@
     popoto.tools.TOGGLE_TAXONOMY = false;
 
     // Change this property to your running Neo4j server or GrapheneDB instance.
-    popoto.rest.CYPHER_URL = "https://db-ptcnmecoulmeizmhv4rr.graphenedb.com:24780/db/data/transaction/commit";
+    //popoto.rest.CYPHER_URL = "https://db-ptcnmecoulmeizmhv4rr.graphenedb.com:24780/db/data/transaction/commit";
     // Add this property if your server requires basic HTTP authentication. If not just remove this line.
-    popoto.rest.AUTHORIZATION = "Basic bWFpbjp1WFdzVVJ1QnVGRkxEc0NsY3FRYg==";
+    //popoto.rest.AUTHORIZATION = "Basic bWFpbjp1WFdzVVJ1QnVGRkxEc0NsY3FRYg==";
+
+    popoto.rest.CYPHER_URL = "http://localhost:7474/db/data/transaction/commit";
+    popoto.rest.AUTHORIZATION = "Basic " + btoa("neo4j:password");
 
     popoto.graph.node.NODE_MAX_CHARS = 13;
 

@@ -73,14 +73,15 @@
                 label: 'Patient',
                 image: DIR + 'patient-male.png',
                 title: "Paul Ellis, age:42",
-                shape: 'image'
+                shape: 'image',
+                size: 50
             });
             nodes.push({id: 12, label: 'Surgeon', image: DIR + 'surgeon.png', shape: 'image'});
 
 
             nodes.push({id: 7, label: 'Hearth Disease', image: DIR + 'heart.png', shape: 'image'});
 
-            nodes.push({id: 8, label: 'Lungs Cancer', image: DIR + 'lungs.png', shape: 'image', size: 50});
+            nodes.push({id: 8, label: 'Lungs Cancer', image: DIR + 'lungs.png', shape: 'circularImage', size: 50});
             nodes.push({id: 9, label: 'Somach Ache', image: DIR + 'stomach.png', shape: 'image'});
 
             nodes.push({id: 10, label: 'Medicine', image: DIR + 'pill.png', shape: 'image'});
@@ -313,7 +314,9 @@
                 nodes: nodes,
                 edges: edges
             };
-            var options = {};
+            var options = {
+
+            };
             network = new vis.Network(container, data, options);
 
 
