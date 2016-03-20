@@ -1,13 +1,28 @@
 <!doctype html>
 <html>
 <head>
-    <title>Network | Images</title>
+    <title>Medical Graph</title>
+    <link rel="shortcut icon" href="favicon.ico"/>
 
     <style type="text/css">
         #mynetwork {
             width: 100%;
-            height: 100vh;
+            height: 90vh;
             border: 1px solid lightgray;
+        }
+
+        #nextDiv {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+        }
+
+        #radio-dialog {
+            text-align: center;
+        }
+
+        .ui-button:focus {
+            outline: none !important
         }
     </style>
 
@@ -77,7 +92,7 @@
              y: y,
              label: 'Observation',
              group: 'Observation',
-             fixed: true,
+             //fixed: true,
              physics: false
              });
              nodesArray.push({
@@ -86,7 +101,7 @@
              y: y + step,
              label: 'Probleme',
              group: 'Probleme',
-             fixed: true,
+             //fixed: true,
              physics: false
              });
              nodesArray.push({
@@ -95,7 +110,7 @@
              y: y + 2 * step,
              label: 'Action',
              group: 'Action',
-             fixed: true,
+             //fixed: true,
              physics: false
              });
              */
@@ -109,7 +124,7 @@
             };
             var options = {
 
-                //layout: {randomSeed: 2},
+                layout: {randomSeed: 5},
                 nodes: {
                     shape: 'dot',
                     font: {strokeWidth: 3, strokeColor: 'white'}
@@ -130,14 +145,14 @@
                         color: {
                             background: '#fb7e81',
                             border: '#fa3d41',
-                            highlight: {background: '#fb7e81', border: '#317ce0'}
+                            highlight: {background: '#fb7e81', border: '#fa3d41'}
                         }
                     },
                     "Action": {
                         color: {
                             background: '#c2fabc',
                             border: '#4ad63a',
-                            highlight: {background: '#c2fabc', border: '#317ce0'}
+                            highlight: {background: '#c2fabc', border: '#4ad63a'}
                         }
                     }
                 },
@@ -146,7 +161,7 @@
                     "barnesHut": {
                         //"gravitationalConstant": -26400,
                         //"centralGravity": 2.6,
-                        "springLength": 280
+                        "springLength": 300
                     }
                 }
             };
@@ -156,45 +171,25 @@
             network.on("doubleClick", function (params) {
 
                         if (params.nodes.length > 0)
-                            if (params.nodes[0] == 15) {
+                            if (params.nodes[0] == 6) {
                                 radioDialog.dialog("open");
-                            } else if (params.nodes[0] == 16) {
-                                typamDialog.dialog("open");
-                            } else if (params.nodes[0] == 7) {
-                                electroDialog.dialog("open");
-                            } else if (params.nodes[0] == 10 || params.nodes[0] == 17) {
-                                noticeDialog.dialog("open");
                             }
                     }
             );
 
             var radioDialog = $("#radio-dialog").dialog({
                 autoOpen: false,
-                height: 400,
-                width: 500,
+                height: 500,
+                width: 450,
                 modal: true
             });
 
-            var typamDialog = $("#typam-dialog").dialog({
-                autoOpen: false,
-                height: 400,
-                width: 500,
-                modal: true
-            });
-
-            var electroDialog = $("#electro-dialog").dialog({
-                autoOpen: false,
-                height: 400,
-                width: 500,
-                modal: true
-            });
-
-            var noticeDialog = $("#notice-dialog").dialog({
-                autoOpen: false,
-                height: 400,
-                width: 500,
-                modal: true
-            });
+            $("#nextButton")
+                    .button()
+                    .click(function (event) {
+                        event.preventDefault();
+                        next();
+                    });
         }
 
         function next() {
@@ -208,55 +203,106 @@
                     });
 
                     edges.add({
+                        id: 201,
                         from: 1,
                         to: 5,
-                        //label: "Suggere",
+                        label: "Suggere",
                         font: {align: "top"},
                         //value:3,
                         arrows: 'to'
                     });
 
                     edges.add({
+                        id: 202,
                         from: 2,
                         to: 5,
-                        //label: "Suggere",
+                        label: "Suggere",
                         font: {align: "top"},
                         arrows: 'to'
                     });
 
                     edges.add({
+                        id: 203,
                         from: 3,
                         to: 5,
-                        //label: "Suggere",
+                        label: "Suggere",
                         arrows: 'to',
                         font: {align: "top"}
                     });
 
                     edges.add({
+                        id: 204,
                         from: 4,
                         to: 5,
-                        //label: "Suggere",
+                        label: "Suggere",
                         arrows: 'to',
                         font: {align: "top"}
                     });
                     //network.stabilize();
+                    //network.fit();
                     break;
                 case 2:
+                    /*
+                     edges.update([
+                     {
+                     id:201,
+                     from: 1,
+                     to: 5,
+                     label:"",
+                     font: {align: "top"},
+                     arrows: 'to'
+                     },
+                     {
+                     id:202,
+                     from: 2,
+                     to: 5,
+                     label:"",
+                     font: {align: "top"},
+                     arrows: 'to'
+                     },
+                     {
+                     id:203,
+                     from: 3,
+                     to: 5,
+                     label:"",
+                     arrows: 'to',
+                     font: {align: "top"}
+                     },
+                     {
+                     id:204,
+                     from: 4,
+                     to: 5,
+                     label:"",
+                     arrows: 'to',
+                     font: {align: "top"}
+                     }]);
+                     */
+
+                    nodes.update([
+                        {
+                            id: 5,
+                            label: 'Pathologie\nPulmonaire',
+                            fixed: true,
+                            group: "Probleme"
+                        }
+                    ]);
+
                     nodes.add({
                         id: 6,
                         label: 'Radio',
-                        title: 'Demande radio 15h',
+                        title: 'Demande de radio',
                         group: "Action"
                     });
 
                     edges.add({
                         from: 5,
                         to: 6,
-                        //label: "recommande",
+                        label: "recommande",
                         arrows: 'to',
                         font: {align: "top"}
                     });
                     //network.stabilize();
+                    //network.fit();
                     break;
                 case 3:
 
@@ -265,7 +311,7 @@
                         {
                             id: 6,
                             label: 'Radio',
-                            title: 'Demande radio 15h',
+                            title: "Radio du 03/12/2014",
                             group: "Observation"
                         }]);
 
@@ -352,9 +398,25 @@
                         arrows: 'to',
                         font: {align: "top"}
                     });
+                    $("#date").html("03/12/2014");
+
                     //network.stabilize();
+                    //network.fit();
                     break;
                 case 4:
+
+                    nodes.update([{
+                        id: 7,
+                        label: 'Cancer',
+                        fixed: true,
+                        group: "Probleme"
+                    }, {
+                        id: 8,
+                        label: 'Tuberculose',
+                        fixed: true,
+                        group: "Probleme"
+                    }]);
+
                     nodes.add({
                         id: 9,
                         label: 'bronchoscopie',
@@ -379,7 +441,7 @@
                         font: {align: "top"}
                     });
                     //network.stabilize();
-
+                    //network.fit();
                     break;
                 case 5:
                     nodes.update([{
@@ -410,7 +472,9 @@
                         size: 8,
                         group: "Probleme"
                     }]);
+                    $("#date").html("13/12/2014");
 
+                    //network.fit();
                     break;
             }
 
@@ -420,14 +484,17 @@
 
 <body onload="draw()">
 
-<input type="button" value="next" onclick="next()">
 <div>
-    <img src="../images/patient-male-32.png"> <span>Pascal Martin</span>
+    <img src="../images/patient-male-32.png" style="vertical-align:middle; margin: 5px">
+    <span>Pascal MARTIN</span> <span id="date"
+                                     style="float: right; font-weight: bold; margin:10px">28/11/2014</span>
 </div>
 <div id="mynetwork"></div>
-<div id="radio-dialog" title="Image">
+<div id="radio-dialog" title="Radiographie">
     <img src="../images/radio.jpg" width="400">
 </div>
-
+<div id="nextDiv">
+    <button id="nextButton">Next</button>
+</div>
 </body>
 </html>
