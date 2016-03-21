@@ -1,0 +1,461 @@
+<!doctype html>
+<html>
+<head>
+    <title>Network | Images</title>
+
+    <style type="text/css">
+        #mynetwork {
+            width: 100%;
+            height: 100vh;
+            border: 1px solid lightgray;
+        }
+    </style>
+
+    <script type="text/javascript" src="../js/vis.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-2.2.2.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+    <link href="../css/vis.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript">
+        var nodes = null;
+        var edges = null;
+        var network = null;
+
+        var DIR = '../images/';
+
+        // Called when the Visualization API is loaded.
+        function draw() {
+            // Create a data table with nodes.
+            nodes = [];
+
+            // Create a data table with links.
+            edges = [];
+
+            // Doctor!
+            nodes.push({
+                id: 1,
+                label: 'Docteurr',
+                image: DIR + 'doctor-male.png',
+                title: "Darrell Woods",
+                shape: 'image'
+            });
+
+            // Patient
+            nodes.push({
+                id: 2,
+                label: 'Patient',
+                image: DIR + 'patient-male.png',
+                title: "Martin Pascal",
+                shape: 'image'
+            });
+
+            // Smoking
+            nodes.push({
+                id: 18,
+                label: 'Fume',
+                image: DIR + 'smoking.png',
+                title: "Martin Pascal",
+                shape: 'image'
+            });
+
+            nodes.push({
+                id: 3,
+                label: 'Nurse',
+                image: DIR + 'nurse-male.png',
+                title: "Shane Bishop",
+                shape: 'image'
+            });
+            nodes.push({
+                id: 4,
+                label: 'Pharmacist',
+                image: DIR + 'pharmacist-female.png',
+                shape: 'image'
+            });
+            nodes.push({
+                id: 5,
+                label: 'Patient',
+                image: DIR + 'patient-female.png',
+                title: "Rebecca Harper, age:61",
+                shape: 'image'
+            });
+            nodes.push({
+                id: 6,
+                label: 'Patient',
+                image: DIR + 'patient-male.png',
+                title: "Paul Ellis, age:42",
+                shape: 'image'
+            });
+
+            nodes.push({
+                id: 12,
+                label: 'Surgeon',
+                image: DIR + 'surgeon.png',
+                shape: 'image'
+            });
+
+            nodes.push({
+                id: 7,
+                label: 'Hearth Disease',
+                image: DIR + 'heart.png',
+                shape: 'image'
+            });
+
+            nodes.push({
+                id: 8,
+                label: 'Lungs Cancer',
+                image: DIR + 'lungs.png',
+                shape: 'image',
+                size: 50
+            });
+
+            nodes.push({
+                id: 9,
+                label: 'Somach Ache',
+                image: DIR + 'stomach.png',
+                shape: 'image'
+            });
+
+            nodes.push({
+                id: 10,
+                label: 'Medicine',
+                image: DIR + 'pill.png',
+                shape: 'image'
+            });
+
+            nodes.push({
+                id: 17,
+                label: 'Medicine 2',
+                image: DIR + 'pill.png',
+                shape: 'image'
+            });
+
+            nodes.push({
+                id: 11,
+                label: 'Surgery',
+                image: DIR + 'scalpel.png',
+                shape: 'image'
+            });
+
+            nodes.push({
+                id: 13,
+                label: 'Hospital',
+                image: DIR + 'hospital.png',
+                title: "CHU Strasbourg",
+                shape: 'image'
+            });
+
+            nodes.push({
+                id: 14,
+                label: 'Virus',
+                image: DIR + 'virus.png',
+                title: "rhinovirus",
+                shape: 'image',
+                size: 10
+            });
+
+            nodes.push({
+                id: 15,
+                label: 'Radiography',
+                image: DIR + 'xray.png',
+                title: "lungs",
+                shape: 'image'
+            });
+
+            nodes.push({
+                id: 16,
+                label: 'Ear exam',
+                image: DIR + 'ear.png',
+                title: "tympan image",
+                shape: 'image'
+            });
+
+            nodes.push({
+                id: 19,
+                label: 'EKG',
+                image: DIR + 'ekg.png',
+                shape: 'image'
+            });
+
+            /*
+             edges.push({
+             from: 6,
+             to: 8,
+             length: 200,
+             label: "health issue",
+             title: "28/02/2015",
+             value: 10,
+             color: "red",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 5,
+             to: 16,
+             length: 200,
+             label: "health issue",
+             title: "28/02/2015",
+             value: 1,
+             color: "red",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 6,
+             to: 9,
+             length: 180,
+             label: "suffer",
+             title: "13/06/2014",
+             arrows: 'to',
+             value: 1,
+             color: "blue",
+             font: {align: "top"}
+             });
+
+             edges.push({
+             from: 5,
+             to: 7,
+             length: 200,
+             label: "health issue",
+             value: 10,
+             color: "red",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 10,
+             to: 17,
+             length: 200,
+             label: "Incompatible with",
+             title: "If posology > 500mg",
+             value: 10,
+             color: "red",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 5,
+             to: 10,
+             length: 180,
+             label: "get treatment",
+             arrows: 'to',
+             value: 3,
+             color: "green",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 4,
+             to: 10,
+             length: 180,
+             label: "give treatment",
+             arrows: 'to',
+             value: 1,
+             color: "blue",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 2,
+             to: 10,
+             length: 180,
+             label: "prescribes",
+             arrows: 'to',
+             value: 1,
+             color: "blue",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 5,
+             to: 17,
+             length: 180,
+             label: "get treatment",
+             arrows: 'to',
+             value: 3,
+             color: "green",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 4,
+             to: 17,
+             length: 180,
+             label: "give treatment",
+             arrows: 'to',
+             value: 1,
+             color: "blue",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 1,
+             to: 17,
+             length: 180,
+             label: "prescribes",
+             arrows: 'to',
+             value: 1,
+             color: "blue",
+             font: {align: "top"}
+             });
+             edges.push({from: 12, to: 11, length: 180, label: "did", value: 3, color: "purple", font: {align: "top"}});
+             edges.push({from: 6, to: 11, length: 180, label: "have", value: 3, color: "purple", font: {align: "top"}});
+             edges.push({
+             from: 2,
+             to: 9,
+             length: 180,
+             label: "consultation",
+             title: "13/06/2014",
+             arrows: "to",
+             value: 2,
+             color: "green",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 1,
+             to: 16,
+             length: 180,
+             label: "consultation",
+             title: "13/06/2014",
+             arrows: "to",
+             value: 2,
+             color: "green",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 12,
+             to: 13,
+             length: 180,
+             label: "work at",
+             title: "since 02/06/2008",
+             arrows: "to",
+             value: 1,
+             color: "gray",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 1,
+             to: 13,
+             length: 180,
+             label: "work at",
+             title: "since 02/06/2010",
+             arrows: "to",
+             value: 1,
+             color: "gray",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 3,
+             to: 6,
+             length: 180,
+             label: "take care of",
+             title: "since 02/06/2008",
+             arrows: "to",
+             value: 1,
+             color: "gray",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 5,
+             to: 14,
+             length: 180,
+             label: "infected by",
+             title: "11/12/2011",
+             arrows: "to",
+             value: 1,
+             color: "gray",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 2,
+             to: 14,
+             length: 180,
+             label: "consultation",
+             title: "11/12/2011",
+             arrows: "to",
+             value: 1,
+             color: "green",
+             font: {align: "top"}
+             });
+             edges.push({
+             from: 15,
+             to: 8,
+             length: 180,
+             label: "radiography",
+             title: "28/02/2005",
+             arrows: "to",
+             value: 1,
+             color: "green",
+             font: {align: "top"}
+             });
+             */
+
+            // create a network
+            var container = document.getElementById('mynetwork');
+            var data = {
+                nodes: nodes,
+                edges: edges
+            };
+            var options = {};
+            network = new vis.Network(container, data, options);
+
+
+            network.on("doubleClick", function (params) {
+
+                        if (params.nodes.length > 0)
+                            if (params.nodes[0] == 15) {
+                                radioDialog.dialog("open");
+                            } else if (params.nodes[0] == 16) {
+                                typamDialog.dialog("open");
+                            } else if (params.nodes[0] == 7) {
+                                electroDialog.dialog("open");
+                            } else if (params.nodes[0] == 10 || params.nodes[0] == 17) {
+                                noticeDialog.dialog("open");
+                            }
+                    }
+            );
+
+            var radioDialog = $("#radio-dialog").dialog({
+                autoOpen: false,
+                height: 400,
+                width: 500,
+                modal: true
+            });
+
+            var typamDialog = $("#typam-dialog").dialog({
+                autoOpen: false,
+                height: 400,
+                width: 500,
+                modal: true
+            });
+
+            var electroDialog = $("#electro-dialog").dialog({
+                autoOpen: false,
+                height: 400,
+                width: 500,
+                modal: true
+            });
+
+            var noticeDialog = $("#notice-dialog").dialog({
+                autoOpen: false,
+                height: 400,
+                width: 500,
+                modal: true
+            });
+        }
+    </script>
+
+<body onload="draw()">
+
+<div id="mynetwork"></div>
+<div id="radio-dialog" title="Image">
+    <img src="../images/radio.jpg" width="400">
+</div>
+
+<div id="typam-dialog" title="Image">
+    <img src="../images/tympan.jpg" width="400">
+</div>
+
+<div id="electro-dialog" title="Image">
+    <img src="../images/electro.jpg" width="400">
+</div>
+
+<div id="notice-dialog" title="Image">
+    <img src="../images/inotice.jpg" width="400">
+</div>
+
+</body>
+</html>
