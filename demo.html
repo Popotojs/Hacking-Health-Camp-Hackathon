@@ -106,6 +106,7 @@
             group: "Observation"
         });
 
+        nodes = new vis.DataSet(nodesArray);
         edges = new vis.DataSet(edgesArray);
 
         radioDialog = $("#radio-dialog").dialog({
@@ -433,6 +434,18 @@
                 $("#date").html("13/12/2014");
                 break;
             case 7:
+                nodes.update([{
+                    id: 7,
+                    label: 'Cancer',
+                    fixed: false,
+                    group: "Probleme"
+                }, {
+                    id: 8,
+                    label: 'Tuberculose',
+                    fixed: false,
+                    group: "Probleme"
+                }]);
+
                 nodes.add({
                     id: 20,
                     label: 'Hypertension',
