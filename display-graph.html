@@ -15,6 +15,11 @@
     </style>
 </head>
 <body>
+<p>
+    This page is a simple example that can be used to display the content of a Neo4j database using <a
+        href="http://visjs.org/">Vis.js</a> library.
+    To be used you need to provide the conection details of a running Neo4j database.
+</p>
 <label>
     Protocol:<input id="protocolinput" type="text" value="http">
 </label>
@@ -50,7 +55,7 @@
                     request.setRequestHeader("Authorization", AUTHORIZATION);
                 }
             },
-            url: $("#protocolinput").val()+"://" + $("#hostinput").val() + ":" + $("#portinput").val() + "/db/data/transaction/commit",
+            url: $("#protocolinput").val() + "://" + $("#hostinput").val() + ":" + $("#portinput").val() + "/db/data/transaction/commit",
             contentType: "application/json",
             data: strData
         });

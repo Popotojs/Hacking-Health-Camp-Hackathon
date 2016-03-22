@@ -9,6 +9,10 @@
             height: 100vh;
             border: 1px solid lightgray;
         }
+
+        .ui-button:focus {
+            outline: none !important
+        }
     </style>
 
     <script type="text/javascript" src="javascripts/vis.min.js"></script>
@@ -314,9 +318,7 @@
                 nodes: nodes,
                 edges: edges
             };
-            var options = {
-
-            };
+            var options = {};
             network = new vis.Network(container, data, options);
 
 
