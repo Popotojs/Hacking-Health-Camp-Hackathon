@@ -181,7 +181,7 @@
         restPost({
             "statements": [
                 {
-                    "statement": "match n,()-[r]-() return n,r limit " + limit,
+                    "statement": "match (n),()-[r]-() return n,r limit " + limit,
                     "resultDataContents": ["graph"]
                 }
             ]
